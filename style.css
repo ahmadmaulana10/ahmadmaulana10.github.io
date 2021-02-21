@@ -1,6 +1,12 @@
 *{
-    font-family: 'SF UI Text', 'Montserrat';
+    font-family: 'Montserrat';
 }
 input { 
     text-align: right; 
+}
+
+@media (max-width: 768px) {
+    body{
+        height: 1300px;
+    }
 }
