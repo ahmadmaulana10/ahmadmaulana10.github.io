@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap4-toggle.min.css">
+    <link rel="stylesheet" href="style.css">
+
+
+    <title>Welcome</title>
+</head>
+
+<body>
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-9 offset-1 d-flex justify-content-center">
+                <h4>Simulasi Perhitungan Jual Beli Saham</h4>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 col-sm-12">
+                <form class="needs-validation">
+                    <div class="form-row d-flex justify-content-center">
+                        <div class="col-md-3 col-9 mt-4">
+                            <label class="d-flex justify-content-end">Harga Per Lembar</label>
+                            <input type="text" class="form-control" id="harga" autocomplete="off">
+                        </div>
+                        <div class="col-md-3 col-9 mt-4">
+                            <label class="d-flex justify-content-end">Jumlah Lot</label>
+                            <input type="text" class="form-control" id="lot" autocomplete="off">
+                        </div>
+                        <div class="col-md-3 col-9 mt-4">
+                            <label class="float-right">Kondisi</label><br>
+                            <input type="checkbox" id="jubel" class="form-control" checked data-toggle="toggle"
+                                data-on="Beli" data-off="Jual" data-onstyle="success" data-offstyle="danger"
+                                data-width="100%">
+                        </div>
+                    </div>
+                    <div class="form-row d-flex justify-content-center">
+                        <div class="col-md-3 col-9 mt-4">
+                            <label class="d-flex justify-content-end">Broker Fee</label>
+                            <input type="text" id="brokerFee" class="form-control" value="0" readonly>
+                        </div>
+                        <div class="col-md-3 col-9 mt-4">
+                            <label class="d-flex justify-content-end">Levy (Biaya Transaksi)</label>
+                            <input type="text" id="levy" class="form-control" value="0" readonly>
+                        </div>
+                        <div class="col-md-3 col-9 mt-4">
+                            <label class="d-flex justify-content-end">PPN</label>
+                            <input type="text" id="ppn" class="form-control" value="0" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row d-flex justify-content-center" id="addPph">
+                        <div class="col-md-3 col-9 mt-4 pphFinal">
+                            <label class="d-flex justify-content-end">PPH Final</label>
+                            <input type="text" id="pph" class="form-control" value="0" readonly>
+                        </div>
+                        <div class="col-md-3 col-9 mt-4 totalBiaya">
+                            <label class="d-flex justify-content-end">Total Biaya</label>
+                            <input type="text" id="totalBiaya" class="form-control" value="0" readonly>
+                        </div>
+                        <div class="col-md-3 col-9 mt-4">
+                            <label class="d-flex justify-content-end">Total Harga Saham</label>
+                            <input type="text" id="totalHargaSaham" class="form-control" value="0" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row d-flex justify-content-center">
+                        <div class="col-md-6 offset-md-3 col-9 mt-4">
+                            <label class="d-flex justify-content-end">Total Keseluruhan</label>
+                            <input type="text" id="total" class="form-control font-weight-bolder" value="Rp. 0"
+                                readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="bootstrap/js/jquery-3.5.1.min.js"></script>
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/bootstrap4-toggle.min.js"></script>
+    <script src="script.js"></script>
+    <!-- <script src="enkripsi.js"></script> -->
+</body>
+
+</html>
