@@ -9,14 +9,21 @@ $('document').ready(function () {
         ppn = $('#ppn'),
         totalBiaya = $('#totalBiaya'),
         totalHargaSaham = $('#totalHargaSaham'),
-        total = $('#total');
+        total = $('#total'),
+        labelTotal = $('.labelTotal');
 
     let
         int_harga = 0,
-        int_lot = 0;
+        int_lot = 0,
+        int_broker = 0,
+        int_levy = 0,
+        int_ppn = 0,
+        int_pph = 0,
+        int_totalHarga = 0;
 
 
     hidePph();
+
     // input filter only number
     harga.inputFilter(function (value) {
         return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a Regex
@@ -40,6 +47,7 @@ $('document').ready(function () {
             }
             if (harga.val() !== "" && lot.val() !== "") {
                 // jalankan perhitungan
+                int_totalHarga = (int_harga * int_lot);
                 hitung()
             } else {
                 reset();
@@ -54,6 +62,7 @@ $('document').ready(function () {
             int_lot = (int(lot.val()) * 100);
             if (harga.val() !== "" && lot.val() !== "") {
                 // jalankan perhitungan
+                int_totalHarga = (int_harga * int_lot);
                 hitung();
             } else {
                 reset();
@@ -79,62 +88,61 @@ $('document').ready(function () {
     })
 
     function changeBrokerFee() {
-        let totalBroker = Math.ceil((int_harga * int_lot) * 0.001);
-        let res = formatRupiah(totalBroker.toString());
+        int_broker = Math.ceil(int_totalHarga * 0.001);
+        let res = formatRupiah(int_broker.toString());
         brokerFee.val(res);
     }
 
     function changeLevy() {
-        let totalLevy = Math.ceil((int_harga * int_lot) * 0.0004);
-        let res = formatRupiah(totalLevy.toString());
+        int_levy = Math.ceil(int_totalHarga * 0.00043);
+        let res = formatRupiah(int_levy.toString());
         levy.val(res);
     }
 
     function changePPN() {
-        let totalBroker = Math.ceil((int_harga * int_lot) * 0.001);
-        let totalPpn = Math.round(totalBroker * 0.1);
-        let res = formatRupiah(totalPpn.toString());
+        int_ppn = Math.ceil((int_broker + int_levy) * 0.1);
+        let res = formatRupiah(int_ppn.toString());
         ppn.val(res);
     }
 
     function changeTotalHargaSaham() {
-        let totalHarga = Math.ceil(int_harga * int_lot);
-        let res = formatRupiah(totalHarga.toString());
+        let res = formatRupiah(int_totalHarga.toString());
         totalHargaSaham.val(res);
     }
 
     function changeTotalBiaya() {
-        let totalBroker = Math.floor((int_harga * int_lot) * 0.001);
-        let totalLevy = Math.ceil((int_harga * int_lot) * 0.0004);
-        let totalPpn = Math.floor(totalBroker * 0.1);
-        let subTotal = Math.floor(totalBroker + totalLevy + totalPpn);
+        let subTotal = Math.ceil(int_broker + int_levy + int_ppn);
         // jika JUAL maka tambahkan PPH
         const btn = $('#jubel').prop('checked');
         if (btn === false) {
-            subTotal += Math.floor((int_harga * int_lot) * 0.001);
+            subTotal += Math.ceil(int_totalHarga * 0.001);
         }
         let res = formatRupiah(subTotal.toString());
         totalBiaya.val(res);
     }
 
+
+    function changePPH() {
+        int_pph = Math.ceil(int_totalHarga * 0.001);
+        let res = formatRupiah(int_pph.toString());
+        pph.val(res);
+    }
+
     function changeTotal() {
-        let totalBroker = Math.floor((int_harga * int_lot) * 0.001);
-        let totalLevy = Math.ceil((int_harga * int_lot) * 0.0004);
-        let totalPpn = Math.floor(totalBroker * 0.1);
-        let tot = Math.floor(totalBroker + totalLevy + totalPpn + (int_harga * int_lot));
-        // jika JUAL maka tambahkan PPH
+        let tot = Math.ceil(int_broker + int_levy + int_ppn);
+
+        // jika JUAL maka tambahkan PPH & kurangi harga saham dgn total biaya
         const btn = $('#jubel').prop('checked');
         if (btn === false) {
-            tot += Math.floor((int_harga * int_lot) * 0.001);
+            tot += Math.ceil(int_totalHarga * 0.001); // PPH
+            tot = int_totalHarga - tot; //kurangi dgn biaya
+            labelTotal.text('Total (setelah dipotong biaya)');
+        } else {
+            tot += int_totalHarga;
+            labelTotal.text('Total');
         }
         let res = formatRupiah(tot.toString());
         total.val('Rp. ' + res);
-    }
-
-    function changePPH() {
-        let tot = Math.floor((int_harga * int_lot) * 0.001);
-        let res = formatRupiah(tot.toString());
-        pph.val(res);
     }
 
     function hitung() {
@@ -154,7 +162,8 @@ $('document').ready(function () {
         levy.val('0');
         pph.val('0');
         ppn.val('0');
-        sub_Total.val('0');
+        totalHargaSaham.val('0');
+        totalBiaya.val('0');
         total.val('Rp. 0');
     }
 
