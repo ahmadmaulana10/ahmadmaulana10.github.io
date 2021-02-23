@@ -1,5 +1,81 @@
 $('document').ready(function () {
+    // Instance the tour
+    const tour = new Tour({
+        steps: [
+            {
+                element: "#harga",
+                title: "Silahkan input harga",
+                content: "contoh : 1000",
+                placement: "bottom",
+                backdrop: true,
+                backdropPadding: 30,
+                template:
+                    `<div class='popover tour'>
+                <div class='arrow'></div>
+                <h3 class='popover-title'></h3>
+                <div class='popover-content'></div>
+                <div class='popover-navigation'>
+                  <button class='btn btn-success' data-role='next'>Next »</button>
+                    </div>
+              </div>`
+            },
+            {
+                element: "#lot",
+                title: "Lalu input jumlah Lot",
+                content: "contoh : 10",
+                placement: "bottom",
+                backdrop: true,
+                backdropPadding: 30,
+                template: `<div class='popover tour'>
+                <div class='arrow'></div>
+                <h3 class='popover-title'></h3>
+                <div class='popover-content'></div>
+                <div class='popover-navigation'>
+                  <button class='btn btn-default' data-role='prev'>« Prev</button>
+                  <span data-role='separator'></span>
+                  <button class='btn btn-success' data-role='next'>Next »</button>
+                    </div>
+              </div>`
+            },
+            {
+                element: "#total",
+                content: "ini jumlah yang harus dibayar ketika kondisi Beli",
+                placement: "bottom",
+                backdrop: true,
+                reflex: true,
+                backdropPadding: 35,
+                template: `<div class='popover tour'>
+                <div class='arrow'></div>
+                <div class='popover-content'></div>
+                <div class='popover-navigation'>
+                  <button class='btn btn-default' data-role='prev'>« Prev</button>
+                  <span data-role='separator'></span>
+                  <button class='btn btn-success' data-role='next'>Next »</button>
+                    </div>
+              </div>`
+            },
+            {
+                element: ".toggle",
+                content: "atur kondisi Beli atau Jual",
+                placement: "bottom",
+                backdrop: true,
+                backdropPadding: 30,
+                template: `<div class='popover tour'>
+                <div class='arrow'></div>
+                <div class='popover-content'></div>
+                <div class='popover-navigation'>
+                  <button class='btn btn-default' data-role='end'>Siap !</button>
+                    </div>
+              </div>`
+            }
+        ]
+    });
 
+    // Initialize the tour
+    tour.init();
+
+    // Start the tour
+    tour.start();
     const
         harga = $('#harga'),
         lot = $('#lot'),
@@ -12,7 +88,7 @@ $('document').ready(function () {
         total = $('#total'),
         labelTotal = $('.labelTotal'),
         fee_broker = 0.001, // 0,1%
-        fee_levy = 0.00043, // 0,04%
+        fee_levy = 0.00043, // 0,043%
         fee_ppn = 0.1, // 10%
         fee_pph = 0.001; // 0,1%
 
@@ -182,7 +258,11 @@ $('document').ready(function () {
         $('.pphFinal').hide();
         $('.totalBiaya').addClass('offset-md-3')
     }
+
+
 });
+
+
 
 // mengubah format ke integer
 function int(data) {
